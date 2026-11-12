@@ -1,0 +1,8 @@
+# 아래쪽 규칙이 우선 적용됨
+*              @bimvocado
+/backend/      @bimvocado @aenaeun
+/frontend/     @aerinee2 @khrr042
+/k8s/          @bimvocado
+/Jenkinsfile   @eunhee227
+/docs/         @khrr042
+/.github/      @bimvocado
