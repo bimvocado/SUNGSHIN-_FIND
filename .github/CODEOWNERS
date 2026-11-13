@@ -6,3 +6,5 @@
 /Jenkinsfile   @eunhee227
 /docs/         @khrr042
 /.github/      @bimvocado
+**/Dockerfile        @slwnt31
+/docker-compose.yml  @slwnt31
