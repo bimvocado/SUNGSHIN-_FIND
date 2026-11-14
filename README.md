@@ -54,3 +54,15 @@
 
 ## 로컬 실행 방법
 추후 docker-compose 구성 후 작성 예정
+
+## GKE 클러스터 접속 가이드
+
+팀원이 로컬 환경(`kubectl`)에서 GCP GKE 클러스터 접속 방법
+
+### 1. 사전 준비
+- GCP 프로젝트(`iron-area-514720-j0`) IAM 권한(`Kubernetes Engine 개발자`) 부여 필요
+- [Google Cloud CLI (`gcloud`)](https://cloud.google.com/sdk/docs/install) 설치
+- `kubectl` 및 GKE 인증 플러그인 설치:
+  ```bash
+  gcloud components install kubectl gke-gcloud-auth-plugin
+  ```
