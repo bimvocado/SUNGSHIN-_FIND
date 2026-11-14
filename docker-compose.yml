@@ -1,0 +1,56 @@
+name: sungshin-find
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: sungshin-find-db
+    # 공식 환경변수 전달
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-sungshin_find}
+      POSTGRES_USER: ${POSTGRES_USER:-sungshin_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sungshin_pass}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    # DB 컨테이너가 켜져서 요청 받을 준비가 되었는지 주기적으로 체크
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-sungshin_user} -d ${POSTGRES_DB:-sungshin_find}"]
+      # 5초마다 검사하고, 5초 안에 응답 없으면 실패로 간주, 최대 5번까지 시도
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    image: sungshin-find-backend:0.1
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sungshin-find-backend
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${POSTGRES_DB:-sungshin_find}
+      DB_USER: ${POSTGRES_USER:-sungshin_user}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-sungshin_pass}
+    ports:
+      - "8000:8000"
+    # DB 컨테이너가 실행됐을 때 해당 컨테이너 실행되도록 설정
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    image: sungshin-find-frontend:0.1
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sungshin-find-frontend
+    ports:
+      - "80:80"
+    # 백엔드 컨테이너가 실행됐을 때 해당 컨테이너 실행되도록 설정
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
