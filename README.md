@@ -53,4 +53,30 @@
 5. 머지되면 이슈 자동 종료
 
 ## 로컬 실행 방법
-추후 docker-compose 구성 후 작성 예정
+
+### 사전 준비
+- Docker Desktop 설치 및 실행
+
+### 전체 서비스 실행
+프로젝트 루트 경로에서 아래 명령어를 실행하면 Frontend(Nginx), Backend(Gunicorn), PostgreSQL이 한 번에 빌드 및 실행됩니다.
+
+```bash
+docker compose up --build -d
+```
+
+### 접속 주소
+- **Frontend (웹 화면):** http://localhost
+- **Backend API (헬스체크 : 실제로 요청 처리 가능한 상태인지 주기적으로 확인):** http://localhost/api/health
+- **PostgreSQL:** `localhost:5432` (DB: `sungshin_find` / User: `sungshin_user`)
+
+### 컨테이너 상태 확인 및 종료
+```bash
+# 실행 중인 컨테이너 확인
+docker compose ps
+
+# 로그 확인
+docker compose logs -f
+
+# 서비스 종료 (DB 데이터 볼륨은 유지됨)
+docker compose down
+```
