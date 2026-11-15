@@ -80,3 +80,30 @@ docker compose logs -f
 # 서비스 종료 (DB 데이터 볼륨은 유지됨)
 docker compose down
 ```
+
+## GKE 클러스터 접속 가이드
+
+팀원이 로컬 환경(`kubectl`)에서 GCP GKE 클러스터 접속 방법
+
+### 1. 사전 준비
+- GCP 프로젝트(`iron-area-514720-j0`) IAM 권한(`Kubernetes Engine 개발자`) 부여 필요
+- [Google Cloud CLI (`gcloud`)](https://cloud.google.com/sdk/docs/install) 설치
+- `kubectl` 및 GKE 인증 플러그인 설치:
+  ```bash
+  gcloud components install kubectl gke-gcloud-auth-plugin
+  ```
+
+### 2. 클러스터 연결 (kubeconfig 등록)
+로컬 `kubectl`이 GCP의 GKE 클러스터(`sungshin-find-cluster`)를 제어할 수 있도록 인증 정보를 등록합니다.
+
+```bash
+gcloud container clusters get-credentials sungshin-find-cluster --zone asia-northeast3-a --project iron-area-514720-j0
+```
+
+### 3. 클러스터 연결 확인
+워커 노드 및 `dev` 네임스페이스가 정상 조회되는지 확인합니다.
+
+```bash
+kubectl get nodes
+kubectl get ns
+```
