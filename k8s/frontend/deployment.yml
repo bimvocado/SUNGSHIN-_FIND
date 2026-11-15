@@ -1,0 +1,28 @@
+# replicas : 2 , 무중단 배포를 위한 RollingUpdate , 컨테이너 이미지를 연동해서 내부 80번 포트로 구동.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: asia-northeast3-docker.pkg.dev/iron-area-514720-j0/sungshin-find/frontend:0.1
+          ports:
+            - containerPort: 80
