@@ -1,0 +1,19 @@
+.health {
+  padding: 40px;
+  font-family: sans-serif;
+}
+
+.health .ok {
+  color: green;
+}
+
+.health .error {
+  color: red;
+}
+
+.health pre {
+  text-align: left;
+  background: #f4f4f4;
+  padding: 12px;
+  border-radius: 8px;
+}
