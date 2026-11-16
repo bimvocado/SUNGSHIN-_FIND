@@ -23,7 +23,8 @@ spec:
     spec:
       containers:
         - name: backend
-          image: asia-northeast3-docker.pkg.dev/iron-area-514720-j0/sungshin-find/backend:0.1
+          image: slwnt31/sungshin-find-backend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
           envFrom:
