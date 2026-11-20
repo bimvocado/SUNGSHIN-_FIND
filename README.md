@@ -107,3 +107,15 @@ gcloud container clusters get-credentials sungshin-find-cluster --zone asia-nort
 kubectl get nodes
 kubectl get ns
 ```
+
+## CI/CD
+
+- PR 생성 시: Jenkins가 이미지 빌드 + 테스트 후 PR에 결과 표시 (실패 시 머지 불가)
+- main 머지 시: Docker Hub에 이미지 push → GKE `dev` 네임스페이스에 롤링 업데이트
+- 이미지 태그: Jenkins 빌드 번호
+
+### 배포 실패 시 롤백
+```bash
+kubectl rollout history deployment/backend -n dev   # 배포 이력 확인
+kubectl rollout undo deployment/backend -n dev      # 이전 버전으로 되돌리기
+```
