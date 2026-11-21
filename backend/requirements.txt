@@ -1,13 +1,10 @@
 asgiref==3.13.0
-colorama==0.4.6
 Django==6.1.3
 djangorestframework==3.18.3
 gunicorn==27.0.1
 iniconfig==2.3.1
 packaging==26.3
 pluggy==1.7.0
-psycopg==3.3.9
-psycopg-binary==3.3.9
 psycopg2-binary==2.9.13
 Pygments==2.21.0
 pytest==9.2.0
