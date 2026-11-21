@@ -28,6 +28,8 @@ services:
       dockerfile: Dockerfile
     container_name: sungshin-find-backend
     environment:
+      SECRET_KEY: ${SECRET_KEY:-django-insecure-local-dev-key}
+      DEBUG: ${DEBUG:-True}
       DB_HOST: db
       DB_PORT: 5432
       DB_NAME: ${POSTGRES_DB:-sungshin_find}
